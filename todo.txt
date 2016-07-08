@@ -1,0 +1,5 @@
+Want to prefer removing things like nouns and verbs but as level of difficulty increases every POS should be fair game.
+Add meta data to poems
+ - author
+ - title
+ - poem

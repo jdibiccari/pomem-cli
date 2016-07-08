@@ -1,6 +1,7 @@
 # Multi-line input
 import re
 import random
+import yaml
 import sys
 import nltk
 
@@ -9,6 +10,12 @@ DIFFICULTY_LEVELS = [1]
 BLEEP_CHARACTER = "_"
 
 ## NEW ##
+def load_yaml_from_file(input):
+    with open (input, 'r') as f:
+        doc = yaml.load(f)
+        poem = doc['body'].splitlines(True)
+        return poem
+
 def load_poem_from_file(input):
     with open (input, "r") as file:
         lines = list(file)
@@ -53,7 +60,7 @@ def bleep(lines, level=1):
 if __name__ == '__main__':
     file = sys.argv[1]
     level = int(sys.argv[2])
-    lines = load_poem_from_file('data/'+ file)
+    lines = load_yaml_from_file('data/'+file)
     for line in bleep(lines, level=level):
         print line
 
