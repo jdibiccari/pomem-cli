@@ -30,9 +30,9 @@ def select_random_from_list(list, qty=1):
     selection = []
     max_selection = len(list)
     try:
-        selection = random.sample((list), qty)
+        selection = random.sample(list, qty)
     except ValueError as e:
-        selection = random.sample((list), max_selection)
+        selection = random.sample(list, max_selection)
     return selection
 
 def bleep_line(line, level=1):
@@ -51,7 +51,8 @@ def bleep(lines, level=1):
 
 if __name__ == '__main__':
     file = sys.argv[1]
+    level = int(sys.argv[2])
     lines = load_poem_from_file('data/'+ file)
-    for line in bleep(lines, level=3):
+    for line in bleep(lines, level=level):
         print line
 
