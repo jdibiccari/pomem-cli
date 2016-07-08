@@ -6,6 +6,7 @@ import nltk
 
 POS = ['NN+', 'VB+', 'JJ+', 'RB+']
 DIFFICULTY_LEVELS = [1]
+BLEEP_CHARACTER = "_"
 
 ## NEW ##
 def load_poem_from_file(input):
@@ -40,7 +41,7 @@ def bleep_line(line, level=1):
     to_remove = select_random_from_list(pos_tokens, level)
     new_line = line
     for word in to_remove:
-        replacement = '#' * len(word)
+        replacement = BLEEP_CHARACTER * len(word)
         new_line = new_line.replace(word, replacement, 1)
     return new_line
 
