@@ -4,10 +4,14 @@ Command line poem memorization aid
 ### Quickstart
 ```
 pip install -r requirements.txt
-python app.py sample.txt [level]
+python app.py
 ```
 
 ### Sample Output
+Command:
+```
+bleep tyger 1
+```
 ```
 _____! Tyger! _______ bright,
 
