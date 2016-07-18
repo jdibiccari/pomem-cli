@@ -15,7 +15,7 @@ raw_input_value = ["Shall I compare thee to a summer's day?",
 expected = "\n".join(raw_input_value[:-1]) + "\n"
 
 class TestMultiLineInput(TestCase):
-    def test_yes(self):
+    def test_multiline(self):
     	mock = MagicMock(side_effect=raw_input_value)
         with patch('__builtin__.raw_input', mock) as _raw_input:
             self.assertEqual(multiline_input(), expected)
