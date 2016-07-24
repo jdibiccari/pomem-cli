@@ -1,10 +1,10 @@
-
 import re
 import random
 from slugify import slugify
 from string import punctuation as PUNCTUATION
 import yaml
 import nltk
+from nltk.corpus import wordnet as wn
 
 POS = ['NN+', 'VB+', 'JJ+', 'RB+']
 DIFFICULTY_LEVELS = [1, 2, 3, 4, 5]
@@ -40,32 +40,25 @@ def pos_tag_line(line):
     return pos_filter(tagged_tokens(tokens(line)))
 
 def select_random_from_list(removal_candidates, qty=1):
-    high_priority_words = removal_candidates[0]
-    low_priority_words = removal_candidates[1]
+    import itertools
+    for word_set in removal_candidates:
+        random.shuffle(word_set)
 
-    random.shuffle(high_priority_words)
-    random.shuffle(low_priority_words)
+    return list(itertools.chain.from_iterable(removal_candidates))[:qty]
 
-    all_words = high_priority_words + low_priority_words
-    print all_words
-    return all_words[:qty]
+# def get_choices(words):
+#     output = ''
+#     for i, word in enumerate(words):
+#         output += '{0}. {1} '.format(i + 1, word)
+#     return output
 
-# def select_random_from_list(removal_candidates, qty=1):
-#     selection = []
-#     match_words = removal_candidates[0]
-#     match_max = len(match_words)
-#     nonmatch_words = removal_candidates[1]
-#     nonmatch_max = len(nonmatch_words)
-#     remainder = qty - match_max
-#     if remainder > 0:
-#         selection = random.sample(match_words, match_max)
-#         if remainder > nonmatch_max:
-#             selection += random.sample(nonmatch_words, nonmatch_max)
-#         else:
-#             selection += random.sample(nonmatch_words, remainder)
-#     else:
-#         selection = random.sample(match_words, qty)
-#     return selection
+def get_similar_words(word):
+    output = [word]
+    for ss in wn.synsets(word):
+        for lemma in ss.lemma_names():
+            output.append(lemma)
+    return output
+
 
 def bleep_line(line, level=1, bleep_character=BLEEP_CHARACTER):
     pos_tokens = pos_tag_line(line)
@@ -74,10 +67,12 @@ def bleep_line(line, level=1, bleep_character=BLEEP_CHARACTER):
     for word in to_remove:
         replacement = bleep_character * len(word)
         new_line = new_line.replace(word, replacement, 1)
-    return new_line
+    return new_line, to_remove
 
 def bleep(lines, level=1, bleep_character=BLEEP_CHARACTER):
     # Per each line there is a set number of possibilites, could store eventually.
     return [bleep_line(line, level, bleep_character) for line in lines]
+
+
 
 

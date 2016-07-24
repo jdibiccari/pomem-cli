@@ -1,5 +1,6 @@
 from bleeping import bleep, load_yaml_from_file
 from add_poem import add_new
+from list_poems import list_poems
 import cmd
 import sys
 
@@ -12,10 +13,15 @@ class PomemShell(cmd.Cmd):
         file, level = arg.split()
         lines = load_yaml_from_file(file)
         for line in bleep(lines, level=int(level), bleep_character=self.bleep_character):
-            print line
+            print line[0]
+            print line[1]
 
     def do_add_new(self, arg):
         add_new()
+
+    def do_library(self, arg):
+        print "Listing all poems in the library..."
+        list_poems()
 
     def do_change_bleep(self, arg):
         old_bleep = self.bleep_character

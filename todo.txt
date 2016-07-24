@@ -1,5 +1,8 @@
-Want to prefer removing things like nouns and verbs but as level of difficulty increases every POS should be fair game.
-Add meta data to poems
+[x] Want to prefer removing things like nouns and verbs but as level of difficulty increases every POS should be fair game.
+[x] Add meta data to poems
  - author
  - title
  - poem
+[ ] Add helpful commands like listing all available poems
+[ ] Start using a database rather than yaml files?
+[ ] For each word in the poem, we need to generate similar words for the user to choose from when filling in the blanks
