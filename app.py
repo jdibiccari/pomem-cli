@@ -1,5 +1,6 @@
 from bleeping import bleep, load_yaml_from_file
 from add_poem import add_new
+from argument_parser import *
 from list_poems import list_poems
 import cmd
 import sys
@@ -10,20 +11,30 @@ class PomemShell(cmd.Cmd):
     bleep_character = "."
 
     def do_bleep(self, arg):
-        file, level = arg.split()
+        expected_args = [('poem_name', str,), ('level', int,)]
+        file, level = parse_args(expected_args, arg)
         lines = load_yaml_from_file(file)
         for line in bleep(lines, level=int(level), bleep_character=self.bleep_character):
             print line[0]
-            print line[1]
+            # print line[1]
 
     def do_add_new(self, arg):
+        """
+        Adds a new poem to the library
+        """
         add_new()
 
     def do_library(self, arg):
+        """
+        Lists all available poem titles
+        """
         print "Listing all poems in the library..."
         list_poems()
 
     def do_change_bleep(self, arg):
+        """
+        Changes the character used to indicate a blank
+        """
         old_bleep = self.bleep_character
         if len(arg) == 1:
             self.bleep_character = arg
