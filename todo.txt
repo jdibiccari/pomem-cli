@@ -3,6 +3,7 @@
  - author
  - title
  - poem
-[ ] Add helpful commands like listing all available poems
+[x] Add helpful commands like listing all available poems
+[ ] Hard to access poems if you have to type out the file name -- when listing give an index number to access?
 [ ] Start using a database rather than yaml files?
 [ ] For each word in the poem, we need to generate similar words for the user to choose from when filling in the blanks

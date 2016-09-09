@@ -3,6 +3,7 @@ Command line poem memorization aid
 
 ### Quickstart
 ```
+source /venv/bin/activate
 pip install -r requirements.txt
 python app.py
 ```

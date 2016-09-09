@@ -3,9 +3,7 @@ def parse_args(expected_args, arg):
     arg_list = arg.split()
     required = [req[0] for req in expected_args]
     if len(arg_list) < len(required):
-        print "You are missing a required argument: {}".format(', '.join(required))
-        return
-
+        raise Exception("You are missing a required argument: {}".format(', '.join(required)))
     check_arg_types(expected_args, arg_list)
 
     return arg_list
@@ -33,3 +31,7 @@ def check_str(arg):
     return isinstance(arg, basestring)
     #Python 3
     # return isinstance(arg, str)
+
+
+def check_len(arg, expected_len):
+    return len(arg) == expected_len

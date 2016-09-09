@@ -12,7 +12,11 @@ class PomemShell(cmd.Cmd):
 
     def do_bleep(self, arg):
         expected_args = [('poem_name', str,), ('level', int,)]
-        file, level = parse_args(expected_args, arg)
+        try:
+            file, level = parse_args(expected_args, arg)
+        except Exception as e:
+            print e
+            return
         lines = load_yaml_from_file(file)
         for line in bleep(lines, level=int(level), bleep_character=self.bleep_character):
             print line[0]
@@ -28,7 +32,7 @@ class PomemShell(cmd.Cmd):
         """
         Lists all available poem titles
         """
-        print "Listing all poems in the library..."
+        print "Listing poems in the library..."
         list_poems()
 
     def do_change_bleep(self, arg):
